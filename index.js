@@ -41,15 +41,17 @@ app.get("/:song", function (req, res) {
     })
     .then(
       function ({ body }) {
-
           body.tracks.items.forEach((song) => {
             let { name, artists, id, album } = song;
   
             tracks.push({
               name,
-              "artists": artists[0].name,
+              "artists": {...artists},
               id,
               "album":album.name,
+              "albumRelease":  album.release_date,
+              "albumImages": album.images,
+              "popularity": album.popularity
             });
           });
           res.status(200).json({
@@ -67,5 +69,5 @@ app.get("/:song", function (req, res) {
 });
 
 app.listen(3000, function () {
-  console.log("Aplicación ejemplo, escuchando el puerto 3000!");
+  console.log("3000!");
 });
